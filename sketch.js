@@ -20,10 +20,10 @@ function preload(){
   
   obs1i=loadImage("cactus.png");
   obs2i=loadImage("cactus.png");
-  obs3i=loadImage("cactus.png");
-  obs4i=loadImage("cactus.png");
-  obs5i=loadImage("cactus.png");
- obs6i=loadImage("cactus.png");
+  obs3i=loadImage("cactus3 (1).png");
+  obs4i=loadImage("cactus3 (1).png");
+  obs5i=loadImage("cactus4.png");
+ obs6i=loadImage("cactus4.png");
   
   goIma=loadImage("gameOver.png");
   restIma=loadImage("restart.png");
