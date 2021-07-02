@@ -158,7 +158,7 @@ function spawnClouds(){
     clouds.addImage("cloud",cloudImage);
     clouds.velocityX=-4;
     clouds.y=rand1;
-    clouds.lifetime=150;
+    clouds.lifetime=200;
     cloudsGroups.add(clouds);
     clouds.depth=trex.depth;
     trex.depth++;
