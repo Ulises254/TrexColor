@@ -156,7 +156,7 @@ function spawnClouds(){
     clouds=createSprite(600,100,40,10);
     clouds.scale=0.08;
     clouds.addImage("cloud",cloudImage);
-    clouds.velocityX=-4+score/100;
+    clouds.velocityX=-4;
     clouds.y=rand1;
     clouds.lifetime=150;
     cloudsGroups.add(clouds);
