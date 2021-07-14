@@ -37,10 +37,10 @@ function preload(){
 
 function setup() {
 
-  createCanvas(600,200)
+  createCanvas(windowWidth,windowHeight);
   
   //crea el sprite del Trex
-  trex = createSprite(50,160,20,50);
+  trex = createSprite(50,height-70,20,50);
   trex.addAnimation("running", trex_running);
   trex.addAnimation("collide", trex_collided);
   trex.scale = 0.13;
@@ -48,19 +48,19 @@ function setup() {
   //trex.debug=true;
   
   //crea el sprite del suelo
-  ground = createSprite(200,180,400,20);
+  ground = createSprite(width/2,height-55,width,2);
   ground.addImage("ground",groundImage);
   ground.x = ground.width /2;
   
   
   //crea el suelo invisible
-  invisibleGround = createSprite(200,180,400,10);
+  invisibleGround = createSprite(width/2,height,width,125);
   invisibleGround.visible = false;
   
-  gO= createSprite(300,100);
+  gO= createSprite(width/2,height/2-50);
     gO.scale=1.4;
     gO.addImage("gameOver",goIma);
-    rest =createSprite(300,140);
+    rest =createSprite(width/2,height/2);
     rest.scale=0.7;
     rest.addImage("restart",restIma);
   rest.visible= false;
@@ -76,7 +76,7 @@ function setup() {
 function draw() {
   //establece el color del fondo
   background("lightblue");
-  rand1 =  Math.round(random(1,100))
+  rand1 =  Math.round(random(1,height/3));
   //console.log(trex.y)
   if(gameState==PLAY){
     ground.velocityX = -4-3*score/100;
@@ -86,12 +86,13 @@ function draw() {
     }
     
     if (ground.x < 0){
-    ground.x = ground.width/2;
+    ground.x = windowWidth/2;
   }
-    if(keyDown("space")&&trex.isTouching(ground)) {
+    if(touches.length>0||keyDown("space")&&trex.y>=height-120) {
     //salta cuando se presiona la barra espaciadora
       trex.velocityY = -12;
       jump.play();
+      touches=[];
   }
 trex.velocityY = trex.velocityY + 0.5;
    //evita que el Trex caiga
@@ -109,6 +110,7 @@ trex.velocityY = trex.velocityY + 0.5;
     rest.visible=true;
     gO.visible=true;
     ground.velocityX=0;
+    trex.velocityY=0;
     obsGroups.setVelocityXEach(0);
     cloudsGroups.setVelocityEach(0);
     obsGroups.setLifetimeEach(-1);
@@ -131,7 +133,7 @@ trex.velocityY = trex.velocityY + 0.5;
   
   //texto score
   fill("black");
-  text("SCORE= "+score,500,50);
+  text("SCORE= "+score,width/2,height/2-100);
   
   
   //aparece las nubes
@@ -153,12 +155,12 @@ function spawnClouds(){
  //escribe tu código aquí 
   
   if(frameCount%60==0){
-    clouds=createSprite(600,100,40,10);
+    clouds=createSprite(width+20,height-300,40,10);
     clouds.scale=0.08;
     clouds.addImage("cloud",cloudImage);
     clouds.velocityX=-4;
     clouds.y=rand1;
-    clouds.lifetime=200;
+    clouds.lifetime=width;
     cloudsGroups.add(clouds);
     clouds.depth=trex.depth;
     trex.depth++;
@@ -168,7 +170,7 @@ function spawnClouds(){
 }
 function spawnObstacles(){
 if(frameCount%60==0){
-  var obstacle=createSprite(600,165,10,40);
+  var obstacle=createSprite(width+20,height-80,10,40);
   obstacle.velocityX=-6-score/100;
   obstacle.scale=0.08;
   obstacle.depth=trex.depth;
@@ -192,7 +194,7 @@ if(frameCount%60==0){
       default:break; 
     
   }
-  obstacle.lifetime=200;
+  obstacle.lifetime=width;
   obsGroups.add(obstacle);
 }
   
